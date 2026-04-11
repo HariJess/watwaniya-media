@@ -17,7 +17,7 @@ export default function Home() {
       <Realizations />
       <CtaSection />
       <ContactSection />
-      {/* <Footer /> */}
+      <Footer />
     </div>
   )
 }
