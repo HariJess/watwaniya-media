@@ -1,29 +1,52 @@
 'use client'
 
-import { Phone } from 'lucide-react'
-
 export function ContactSection() {
   return (
-    <section className="bg-black py-20 border-t border-gray-800">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12">
-          <p className="text-gray-400 text-sm mb-4">VOICI UN PROJET DE COMMUNICATION OU DE PRODUCTION AUDIOVISUELLE ?</p>
-          <h2 className="text-4xl md:text-5xl font-bold text-white">
-            Contactez notre équipe pour transformer<br />
-            <span className="text-orange-500">vos idées en projets à impact</span>
-          </h2>
-        </div>
+    <section className="relative bg-[#1a1a1a] py-20 overflow-hidden">
+
+      {/* Large watermark "CONTACT" text in background */}
+      <div
+        className="absolute inset-0 flex items-end justify-center pointer-events-none select-none"
+        aria-hidden="true"
+      >
+        <span
+          className="text-[clamp(80px,18vw,220px)] font-extrabold tracking-widest text-[#2a2a2a] leading-none pb-0"
+          style={{ letterSpacing: '0.15em' }}
+        >
+          CONTACT
+        </span>
+      </div>
+
+      {/* Content */}
+      <div className="relative z-10 max-w-5xl mx-auto px-6 sm:px-10 lg:px-16 text-center">
+
+        {/* Eyebrow text */}
+        <p className="text-white text-xs sm:text-sm font-semibold tracking-[0.2em] uppercase mb-4">
+          Vous avez un projet de communication
+          <br />
+          ou de production audiovisuelle&nbsp;?
+        </p>
+
+        {/* Decorative line */}
+        <div className="w-8 h-px bg-white mx-auto mb-8" />
+
+        {/* Main heading */}
+        <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-orange-500 leading-tight mb-12">
+          Contactez notre équipe pour transformer
+          <br />
+          vos idées en projets à impact
+        </h2>
 
         {/* CTA Buttons */}
-        <div className="flex flex-col sm:flex-row justify-center gap-6">
-          <button className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-4 rounded-lg transition font-medium">
-            NOUS CONTACTER
+        <div className="flex flex-col sm:flex-row justify-center gap-4 sm:gap-6">
+          <button className="cursor-pointer bg-orange-500 hover:bg-orange-600 active:bg-orange-700 transition-colors text-white font-extrabold tracking-[0.15em] text-sm uppercase px-12 py-5">
+            Nous contacter
           </button>
-          <button className="border-2 border-white hover:bg-white text-white hover:text-black px-8 py-4 rounded-lg transition font-medium flex items-center justify-center gap-2">
-            <Phone size={20} />
-            APPELER LE +256 611 2227
+          <button className="cursor-pointer border border-white hover:bg-white hover:text-black active:bg-gray-200 transition-colors text-white font-extrabold tracking-[0.15em] text-sm uppercase px-12 py-5">
+            Appeler le +269 401 2231
           </button>
         </div>
+
       </div>
     </section>
   )

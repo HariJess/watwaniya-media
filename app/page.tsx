@@ -15,8 +15,8 @@ export default function Home() {
       <Presentation />
       <Services />
       <Realizations />
-      {/* <CtaSection /> */}
-      {/* <ContactSection /> */}
+      <CtaSection />
+      <ContactSection />
       {/* <Footer /> */}
     </div>
   )
