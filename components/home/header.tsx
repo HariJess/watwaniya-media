@@ -16,7 +16,12 @@ export function Header() {
   const [isOpen, setIsOpen] = useState(false)
 
   return (
-    <header className="fixed top-0 w-full z-50" style={{ background: 'linear-gradient(to right, #0a0a0a 20%, #111 40%)' }}>
+    <header
+      className="fixed top-0 z-50 w-full backdrop-blur-md"
+      style={{
+        background: 'linear-gradient(to right, rgba(10,10,10,0.20) 70%, rgba(17,17,17,0.4) 100%)',
+      }}
+    >
       <div className="max-w-7xl mx-auto flex items-stretch h-[72px] sm:h-20">
 
         {/* Logo block */}
