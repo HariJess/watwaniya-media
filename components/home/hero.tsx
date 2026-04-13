@@ -1,6 +1,7 @@
 'use client'
 
 import { ArrowRight } from 'lucide-react'
+import Link from 'next/link'
 
 export function Hero() {
   return (
@@ -89,7 +90,7 @@ export function Hero() {
         </p>
 
         <div className="flex flex-col items-start gap-4 sm:flex-row sm:items-center">
-          <button
+          <Link href='/services'
             className="
               inline-flex min-w-[220px] items-center justify-center
               bg-[#e84e1b] px-7 py-[14px]
@@ -98,9 +99,9 @@ export function Hero() {
             "
           >
             DÉCOUVRIR NOS SERVICES
-          </button>
+          </Link>
 
-          <button
+          <Link href='/realisations'
             className="
               group inline-flex items-center gap-3
               bg-transparent px-7 py-[14px]
@@ -112,7 +113,7 @@ export function Hero() {
             <span className="inline-flex transition-transform duration-200 group-hover:translate-x-1.5">
               <ArrowRight size={18} />
             </span>
-          </button>
+          </Link>
         </div>
       </div>
     </section>

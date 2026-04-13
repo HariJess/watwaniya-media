@@ -14,17 +14,17 @@ export function Footer() {
               alt="Watwaniya Media Logo"
               width={70}
               height={30}
-              className="object-cover"
+              className="object-cover w-auto h-auto"
             />
           </div>
 
           {/* Center: Nav links */}
           <nav className="flex items-center gap-2 sm:gap-3 flex-wrap justify-center">
             {[
-              { href: '#accueil', label: 'ACCUEIL' },
-              { href: '#services', label: 'SERVICES' },
-              { href: '#realisations', label: 'REALISATIONS' },
-              { href: '#apropos', label: 'A PROPOS' },
+              { href: '/', label: 'ACCUEIL' },
+              { href: '/services', label: 'SERVICES' },
+              { href: '/realisations', label: 'REALISATIONS' },
+              { href: '/apropos', label: 'A PROPOS' },
             ].map((link, i, arr) => (
               <span key={link.href} className="flex items-center gap-2 sm:gap-3">
                 <a

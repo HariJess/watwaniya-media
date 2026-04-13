@@ -1,4 +1,5 @@
 'use client'
+import Link from 'next/link'
 
 export function ContactSection() {
   return (
@@ -39,12 +40,12 @@ export function ContactSection() {
 
         {/* CTA Buttons */}
         <div className="flex flex-col sm:flex-row justify-center gap-4 sm:gap-6">
-          <button className="cursor-pointer bg-orange-500 hover:bg-orange-600 active:bg-orange-700 transition-colors text-white font-extrabold tracking-[0.15em] text-sm uppercase px-12 py-5">
+          <Link href="/contact" className="cursor-pointer bg-orange-500 hover:bg-orange-600 active:bg-orange-700 transition-colors text-white font-extrabold tracking-[0.15em] text-sm uppercase px-12 py-5">
             Nous contacter
-          </button>
-          <button className="cursor-pointer border border-white hover:bg-white hover:text-black active:bg-gray-200 transition-colors text-white font-extrabold tracking-[0.15em] text-sm uppercase px-12 py-5">
+          </Link>
+          <Link href="tel:+2694012231" className="cursor-pointer border border-white hover:bg-white hover:text-black active:bg-gray-200 transition-colors text-white font-extrabold tracking-[0.15em] text-sm uppercase px-12 py-5">
             Appeler le +269 401 2231
-          </button>
+          </Link>
         </div>
 
       </div>

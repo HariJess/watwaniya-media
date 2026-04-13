@@ -6,10 +6,10 @@ import { useState } from 'react'
 import Image from 'next/image'
 
 const navLinks = [
-  { href: '#accueil', label: 'ACCUEIL' },
-  { href: '#services', label: 'SERVICES' },
-  { href: '#realisations', label: 'RÉALISATIONS' },
-  { href: '#apropos', label: 'A PROPOS DE NOUS' },
+  { href: '/', label: 'ACCUEIL' },
+  { href: '/services', label: 'SERVICES' },
+  { href: '/realisations', label: 'RÉALISATIONS' },
+  { href: '/apropos', label: 'A PROPOS DE NOUS' },
 ]
 
 export function Header() {
@@ -55,7 +55,7 @@ export function Header() {
 
         {/* Contact CTA — full-height orange block */}
         <Link
-          href="#contact"
+          href="/contact"
           className="hidden lg:flex items-center gap-3 bg-orange-500 hover:bg-orange-600 active:bg-orange-700 transition-colors px-8 lg:px-12 flex-shrink-0 group"
         >
           <span className="text-white text-xs font-black tracking-[0.18em] uppercase">CONTACT</span>
@@ -72,7 +72,7 @@ export function Header() {
             {isOpen ? <X size={22} /> : <Menu size={22} />}
           </button>
           <Link
-            href="#contact"
+            href="/contact"
             className="flex items-center gap-2 bg-orange-500 h-full px-5"
           >
             <span className="text-white text-[10px] font-black tracking-[0.15em] uppercase">CONTACT</span>
