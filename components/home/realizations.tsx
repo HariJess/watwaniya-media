@@ -1,64 +1,49 @@
 'use client'
 
-const realizations = [
-  {
-    id: 1,
-    title: 'Productions audiovisuelles',
-    image: '/placeholder.svg?height=400&width=550',
-    large: true,
-    dots: true,
-    activeDot: 1,
-  },
-  {
-    id: 2,
-    title: 'Émissions et interview',
-    image: '/placeholder.svg?height=400&width=280',
-    large: false,
-  },
-  {
-    id: 3,
-    title: 'Campagnes digitales',
-    image: '/placeholder.svg?height=400&width=280',
-    large: false,
-  },
-  {
-    id: 4,
-    title: 'Projets institutionnels',
-    image: '/placeholder.svg?height=400&width=280',
-    large: false,
-  },
-  {
-    id: 5,
-    title: 'Shooting Photos',
-    image: '/placeholder.svg?height=400&width=280',
-    large: false,
-  },
-  {
-    id: 6,
-    title: 'Plateformes digitales développées',
-    image: '/placeholder.svg?height=400&width=550',
-    large: true,
-    dots: true,
-    activeDot: 0,
-  },
-]
+import { useState } from 'react'
+import { Realization } from '@/lib/realization/formatRealizations'
 
-function DotIndicator({ activeDot }: { activeDot: number }) {
+// ✅ Tableau statique supprimé
+
+function RealizationCard({ item, large }: { item: Realization; large: boolean }) {
+  const [activeIndex, setActiveIndex] = useState(0)
+  const hasMultiple = item.images.length > 1
+
   return (
-    <div className="flex gap-1.5">
-      {[0, 1, 2].map((i) => (
-        <span
-          key={i}
-          className={`w-2.5 h-2.5 rounded-full ${
-            i === activeDot ? 'bg-orange-500' : 'bg-gray-400'
-          }`}
-        />
-      ))}
+    <div className="relative rounded-xl overflow-hidden h-[380px] cursor-pointer group">
+      <img
+        src={item.images[activeIndex]}
+        alt={item.title}
+        className="w-full h-full object-cover brightness-75 group-hover:scale-105 transition duration-500"
+      />
+      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+      <div className="absolute bottom-0 left-0 p-5 w-full flex justify-between items-end">
+        <h3 className={`text-white font-bold text-xl leading-tight ${large ? 'max-w-[60%]' : ''}`}>
+          {item.title}
+        </h3>
+        {hasMultiple && (
+          <div className="flex gap-1.5">
+            {item.images.map((_, i) => (
+              <button
+                key={i}
+                onClick={() => setActiveIndex(i)}
+                className={`w-2.5 h-2.5 rounded-full transition ${
+                  i === activeIndex ? 'bg-orange-500' : 'bg-gray-400 hover:bg-gray-200'
+                }`}
+              />
+            ))}
+          </div>
+        )}
+      </div>
     </div>
   )
 }
 
-export function Realizations() {
+// ✅ Reçoit les données en props depuis page.tsx (Server Component)
+export function Realizations({ realizations }: { realizations: Realization[] }) {
+  const row1 = realizations.slice(0, 3)
+  const row2 = realizations.slice(3, 6)
+
   return (
     <section id="realisations" className="bg-[#111] py-16 border-t border-gray-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -79,102 +64,18 @@ export function Realizations() {
           </div>
         </div>
 
-        {/* Row 1: 1 large (left) + 2 small (right) */}
+        {/* Row 1: large + small + small */}
         <div className="grid grid-cols-1 md:grid-cols-[1.9fr_1fr_1fr] gap-3 mb-3">
-          {/* Large card */}
-          <div className="relative rounded-xl overflow-hidden h-[380px] cursor-pointer group">
-            <img
-              src={realizations[0].image}
-              alt={realizations[0].title}
-              className="w-full h-full object-cover brightness-75 group-hover:scale-105 transition duration-500"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-            <div className="absolute bottom-0 left-0 p-5 w-full flex justify-between items-end">
-              <h3 className="text-white font-bold text-xl leading-tight max-w-[60%]">
-                {realizations[0].title}
-              </h3>
-              <DotIndicator activeDot={1} />
-            </div>
-          </div>
-
-          {/* Small card 2 */}
-          <div className="relative rounded-xl overflow-hidden h-[380px] cursor-pointer group">
-            <img
-              src={realizations[1].image}
-              alt={realizations[1].title}
-              className="w-full h-full object-cover brightness-75 group-hover:scale-105 transition duration-500"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-            <div className="absolute bottom-0 left-0 p-5">
-              <h3 className="text-white font-bold text-xl leading-tight">
-                {realizations[1].title}
-              </h3>
-            </div>
-          </div>
-
-          {/* Small card 3 */}
-          <div className="relative rounded-xl overflow-hidden h-[380px] cursor-pointer group">
-            <img
-              src={realizations[2].image}
-              alt={realizations[2].title}
-              className="w-full h-full object-cover brightness-75 group-hover:scale-105 transition duration-500"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-            <div className="absolute bottom-0 left-0 p-5">
-              <h3 className="text-white font-bold text-xl leading-tight">
-                {realizations[2].title}
-              </h3>
-            </div>
-          </div>
+          {row1.map((item, i) => (
+            <RealizationCard key={item.id} item={item} large={i === 0} />
+          ))}
         </div>
 
-        {/* Row 2: 2 small (left) + 1 large (right) */}
+        {/* Row 2: small + small + large */}
         <div className="grid grid-cols-1 md:grid-cols-[1fr_1fr_1.9fr] gap-3">
-          {/* Small card 4 */}
-          <div className="relative rounded-xl overflow-hidden h-[380px] cursor-pointer group">
-            <img
-              src={realizations[3].image}
-              alt={realizations[3].title}
-              className="w-full h-full object-cover brightness-75 group-hover:scale-105 transition duration-500"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-            <div className="absolute bottom-0 left-0 p-5">
-              <h3 className="text-white font-bold text-xl leading-tight">
-                {realizations[3].title}
-              </h3>
-            </div>
-          </div>
-
-          {/* Small card 5 */}
-          <div className="relative rounded-xl overflow-hidden h-[380px] cursor-pointer group">
-            <img
-              src={realizations[4].image}
-              alt={realizations[4].title}
-              className="w-full h-full object-cover brightness-75 group-hover:scale-105 transition duration-500"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-            <div className="absolute bottom-0 left-0 p-5">
-              <h3 className="text-white font-bold text-xl leading-tight">
-                {realizations[4].title}
-              </h3>
-            </div>
-          </div>
-
-          {/* Large card 6 */}
-          <div className="relative rounded-xl overflow-hidden h-[380px] cursor-pointer group">
-            <img
-              src={realizations[5].image}
-              alt={realizations[5].title}
-              className="w-full h-full object-cover brightness-75 group-hover:scale-105 transition duration-500"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-            <div className="absolute bottom-0 left-0 p-5 w-full flex justify-between items-end">
-              <h3 className="text-white font-bold text-xl leading-tight max-w-[60%]">
-                {realizations[5].title}
-              </h3>
-              <DotIndicator activeDot={0} />
-            </div>
-          </div>
+          {row2.map((item, i) => (
+            <RealizationCard key={item.id} item={item} large={i === 2} />
+          ))}
         </div>
 
       </div>

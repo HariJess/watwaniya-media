@@ -6,15 +6,17 @@ import { Realizations } from '@/components/home/realizations'
 import { CtaSection } from '@/components/home/cta-section'
 import { ContactSection } from '@/components/home/contact-section'
 import { Footer } from '@/components/home/footer'
+import { getRealizations } from '@/lib/realization/getRealizations'
 
-export default function Home() {
+export default async function Home() {
+  const realizations = await getRealizations()
   return (
     <div className="bg-black">
       <Header />
       <Hero />
       <Presentation />
       <Services />
-      <Realizations />
+      <Realizations  realizations={realizations}/>
       <CtaSection />
       <ContactSection />
       <Footer />
