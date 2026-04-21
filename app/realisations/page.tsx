@@ -1,6 +1,6 @@
-import { Header } from '@/components/home/header'
+import { Header } from '@/components/layout/header'
 import { ContactSection } from '@/components/home/contact-section'
-import { Footer } from '@/components/home/footer'
+import { Footer } from '@/components/layout/footer'
 import { RealizationsHero } from '@/components/realisations/realizations-hero'
 import { SectionAudiovisualProductions } from '@/components/realisations/section-audiovisual-productions'
 import { SectionEmissions } from '@/components/realisations/section-emissions'

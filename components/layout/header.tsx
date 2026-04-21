@@ -17,7 +17,7 @@ export function Header() {
 
   return (
     <header
-      className="fixed top-0 z-50 w-full backdrop-blur-md"
+      className="fixed top-0 z-20 w-full backdrop-blur-md"
       style={{
         background: 'linear-gradient(to right, rgba(10,10,10,0.20) 70%, rgba(17,17,17,0.4) 100%)',
       }}
