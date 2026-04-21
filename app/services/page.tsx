@@ -5,9 +5,9 @@ import { SectionDigitalContent } from '@/components/services/section-digital-con
 import { SectionAudiovisuelDigital } from '@/components/services/section-audiovisuel-digital'
 import { SectionEmissions } from '@/components/services/section-emissions'
 import { SectionWebDevelopment } from '@/components/services/section-web-development'
-import { Header } from '@/components/layout/header'
+import { Header } from '@/components/Layout/header'
 import { ContactSection } from '@/components/home/contact-section'
-import { Footer } from '@/components/layout/footer'
+import { Footer } from '@/components/Layout/footer'
 
 export default function ServicesPage() {
   return (
