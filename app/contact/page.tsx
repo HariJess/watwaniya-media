@@ -1,5 +1,5 @@
-import { Header } from '@/components/home/header'
-import { Footer } from '@/components/home/footer'
+import { Header } from '@/components/layout/header'
+import { Footer } from '@/components/layout/footer'
 import { ContactHero } from '@/components/contact/contact-hero'
 import { ContactContent } from '@/components/contact/contact-content'
 
