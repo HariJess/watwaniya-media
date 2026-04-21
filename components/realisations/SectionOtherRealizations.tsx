@@ -47,9 +47,9 @@ function RealizationCarousel({ item }: { item: Realization }) {
                   />
                   <div className="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-colors" />
                 </div>
-                {/* <div className="absolute bottom-4 left-4 text-white font-bold text-sm">
+                <div className="absolute bottom-4 left-4 text-white font-bold text-sm">
                   {item.title}
-                </div> */}
+                </div>
               </div>
             ))}
           </div>

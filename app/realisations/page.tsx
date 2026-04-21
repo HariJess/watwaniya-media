@@ -12,6 +12,20 @@ export default async function RealizationsPage() {
   const first = allRealizations[0] ?? null
   const others = allRealizations.slice(1)
 
+  if (!allRealizations.length) {
+    return (
+      <div className="bg-black">
+        <Header />
+        <RealizationsHero />
+        <div className="py-20 text-center text-gray-500">
+          Aucune réalisation disponible pour le moment.
+        </div>
+        <ContactSection />
+        <Footer />
+      </div>
+    )
+  }
+
   return (
     <div className="bg-black">
       <Header />
