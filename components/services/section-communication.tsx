@@ -14,7 +14,7 @@ export function SectionCommunication() {
             className="w-[180px] h-[180px] object-contain"
           />
         </div>
-        <div className="grid grid-cols-1 lg:grid-cols-[280px_1fr] gap-12 lg:gap-16 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-[280px_1fr] gap-4 lg:gap-6 items-start">
           <div className="flex flex-col justify-start relative">
             <h2 className="mb-4 text-2xl md:text-3xl font-bold text-white leading-snug">
               Expertise en communication de masse
