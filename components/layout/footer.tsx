@@ -22,9 +22,9 @@ export function Footer() {
           <nav className="flex items-center gap-2 sm:gap-3 flex-wrap justify-center">
             {[
               { href: '/', label: 'ACCUEIL' },
+              { href: '/#about-us', label: 'A PROPOS' },
               { href: '/services', label: 'SERVICES' },
               { href: '/realisations', label: 'REALISATIONS' },
-              { href: '/apropos', label: 'A PROPOS' },
             ].map((link, i, arr) => (
               <span key={link.href} className="flex items-center gap-2 sm:gap-3">
                 <a

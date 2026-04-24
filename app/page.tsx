@@ -1,11 +1,11 @@
-import { Header } from '@/components/layout/header'
+import { Header } from '@/components/Layout/header'
 import { Hero } from '@/components/home/hero'
 import { Presentation } from '@/components/home/presentation'
 import { Services } from '@/components/home/services'
 import { Realizations } from '@/components/home/realizations'
 import { CtaSection } from '@/components/home/cta-section'
 import { ContactSection } from '@/components/home/contact-section'
-import { Footer } from '@/components/layout/footer'
+import { Footer } from '@/components/Layout/footer'
 import { getRealizations } from '@/lib/realization/getRealizations'
 
 export default async function Home() {

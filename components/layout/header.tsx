@@ -7,9 +7,9 @@ import Image from 'next/image'
 
 const navLinks = [
   { href: '/', label: 'ACCUEIL' },
+  { href: '/#about-us', label: 'A PROPOS DE NOUS' },
   { href: '/services', label: 'SERVICES' },
   { href: '/realisations', label: 'RÉALISATIONS' },
-  { href: '/apropos', label: 'A PROPOS DE NOUS' },
 ]
 
 export function Header() {

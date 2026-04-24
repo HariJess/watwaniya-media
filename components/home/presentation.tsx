@@ -4,7 +4,7 @@ import Image from 'next/image'
 
 export function Presentation() {
   return (
-    <section className="bg-black py-20 border-t border-gray-800">
+    <section id='about-us' className="bg-black py-20 border-t border-gray-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           {/* Left Content */}
