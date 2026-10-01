@@ -2,6 +2,8 @@
 
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
+import { LogOut, Loader2 } from 'lucide-react'
+import { Button } from '@/components/ui/button'
 
 export function LogoutButton() {
   const router = useRouter()
@@ -15,13 +17,17 @@ export function LogoutButton() {
   }
 
   return (
-    <button
+    <Button
       type="button"
+      variant="ghost"
+      size="sm"
       onClick={handleLogout}
       disabled={loading}
-      className="text-sm text-neutral-600 hover:text-red-600 disabled:opacity-50"
+      className="text-neutral-600 hover:text-red-600"
+      aria-label="Déconnexion"
     >
-      {loading ? '...' : 'Déconnexion'}
-    </button>
+      {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : <LogOut className="w-4 h-4" />}
+      <span className="hidden sm:inline">Déconnexion</span>
+    </Button>
   )
 }

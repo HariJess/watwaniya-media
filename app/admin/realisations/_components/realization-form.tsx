@@ -2,6 +2,13 @@
 
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
+import { Upload, X, Loader2, Save, ArrowLeft, Star, AlertCircle } from 'lucide-react'
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Switch } from '@/components/ui/switch'
+import { Alert, AlertDescription } from '@/components/ui/alert'
 
 type ExistingImage = { id: number; url: string }
 
@@ -34,6 +41,11 @@ export function RealizationForm({ mode, id, initial }: Props) {
     setNewFiles((prev) => prev.filter((_, i) => i !== index))
   }
 
+  function handleFilesSelected(files: FileList | null) {
+    if (!files) return
+    setNewFiles((prev) => [...prev, ...Array.from(files)])
+  }
+
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
     setError(null)
@@ -63,115 +75,162 @@ export function RealizationForm({ mode, id, initial }: Props) {
     }
   }
 
+  const totalImages = existingImages.length + newFiles.length
+
   return (
-    <form onSubmit={handleSubmit} className="space-y-6 bg-white border rounded-lg p-6 max-w-2xl">
-      <div className="space-y-1">
-        <label className="text-sm font-medium" htmlFor="title">Titre</label>
-        <input
-          id="title"
-          required
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          className="w-full border rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-orange-500"
-        />
-      </div>
-
-      <div className="grid grid-cols-2 gap-4">
-        <div className="space-y-1">
-          <label className="text-sm font-medium" htmlFor="position">
-            Position <span className="text-neutral-400">(ordre d&apos;affichage)</span>
-          </label>
-          <input
-            id="position"
-            type="number"
-            value={position}
-            onChange={(e) => setPosition(Number(e.target.value))}
-            className="w-full border rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-orange-500"
-          />
-        </div>
-
-        <label className="flex items-end gap-2 cursor-pointer">
-          <input
-            type="checkbox"
-            checked={large}
-            onChange={(e) => setLarge(e.target.checked)}
-            className="w-4 h-4"
-          />
-          <span className="text-sm">Mettre en avant (grande vignette)</span>
-        </label>
-      </div>
-
-      {mode === 'edit' && existingImages.length > 0 && (
-        <div className="space-y-2">
-          <div className="text-sm font-medium">Images actuelles</div>
-          <div className="grid grid-cols-3 sm:grid-cols-4 gap-2">
-            {existingImages.map((img) => (
-              <div key={img.id} className="relative group">
-                <img src={img.url} alt="" className="w-full h-24 object-cover rounded border" />
-                <button
-                  type="button"
-                  onClick={() => removeExistingImage(img.id)}
-                  className="absolute top-1 right-1 bg-red-600 text-white text-xs rounded px-1.5 py-0.5 opacity-0 group-hover:opacity-100 transition"
-                >
-                  retirer
-                </button>
-              </div>
-            ))}
+    <form onSubmit={handleSubmit} className="space-y-6 max-w-3xl">
+      <Card>
+        <CardHeader>
+          <CardTitle>Informations</CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-5">
+          <div className="space-y-1.5">
+            <Label htmlFor="title">
+              Titre <span className="text-red-500">*</span>
+            </Label>
+            <Input
+              id="title"
+              required
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              placeholder="Nom du projet"
+            />
           </div>
-        </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+            <div className="space-y-1.5">
+              <Label htmlFor="position">Position</Label>
+              <Input
+                id="position"
+                type="number"
+                inputMode="numeric"
+                value={position}
+                onChange={(e) => setPosition(Number(e.target.value))}
+              />
+              <p className="text-xs text-neutral-500">
+                Ordre d&apos;affichage (plus petit = en premier)
+              </p>
+            </div>
+
+            <div className="space-y-1.5">
+              <Label htmlFor="large">Mise en avant</Label>
+              <div className="flex items-center gap-3 h-9">
+                <Switch id="large" checked={large} onCheckedChange={setLarge} />
+                <span className="text-sm text-neutral-600 flex items-center gap-1.5">
+                  {large && <Star className="w-3.5 h-3.5 text-orange-500 fill-orange-500" />}
+                  {large ? 'Grande vignette activée' : 'Vignette standard'}
+                </span>
+              </div>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+
+      <Card>
+        <CardHeader>
+          <CardTitle className="flex items-center justify-between gap-2">
+            <span>Images</span>
+            <span className="text-sm font-normal text-neutral-500">
+              {totalImages} fichier{totalImages > 1 ? 's' : ''}
+            </span>
+          </CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          {(existingImages.length > 0 || newFiles.length > 0) && (
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 2xl:grid-cols-5 gap-2 sm:gap-3">
+              {existingImages.map((img) => (
+                <div
+                  key={`existing-${img.id}`}
+                  className="relative group aspect-square rounded-md overflow-hidden ring-1 ring-neutral-200"
+                >
+                  <img src={img.url} alt="" className="w-full h-full object-cover" />
+                  <button
+                    type="button"
+                    onClick={() => removeExistingImage(img.id)}
+                    aria-label="Retirer"
+                    className="absolute top-1.5 right-1.5 w-7 h-7 sm:w-6 sm:h-6 bg-black/70 hover:bg-red-600 text-white rounded-full flex items-center justify-center sm:opacity-0 sm:group-hover:opacity-100 transition-all"
+                  >
+                    <X className="w-4 h-4 sm:w-3.5 sm:h-3.5" />
+                  </button>
+                </div>
+              ))}
+              {newFiles.map((f, i) => (
+                <div
+                  key={`new-${i}`}
+                  className="relative group aspect-square rounded-md overflow-hidden ring-1 ring-orange-300"
+                >
+                  <img
+                    src={URL.createObjectURL(f)}
+                    alt=""
+                    className="w-full h-full object-cover"
+                  />
+                  <span className="absolute top-1.5 left-1.5 text-[10px] font-medium bg-orange-500 text-white px-1.5 py-0.5 rounded">
+                    nouveau
+                  </span>
+                  <button
+                    type="button"
+                    onClick={() => removeNewFile(i)}
+                    aria-label="Retirer"
+                    className="absolute top-1.5 right-1.5 w-7 h-7 sm:w-6 sm:h-6 bg-black/70 hover:bg-red-600 text-white rounded-full flex items-center justify-center sm:opacity-0 sm:group-hover:opacity-100 transition-all"
+                  >
+                    <X className="w-4 h-4 sm:w-3.5 sm:h-3.5" />
+                  </button>
+                </div>
+              ))}
+            </div>
+          )}
+
+          <label
+            htmlFor="images"
+            className="border-2 border-dashed border-neutral-300 rounded-lg p-5 sm:p-6 flex flex-col items-center justify-center text-center cursor-pointer hover:border-orange-400 hover:bg-orange-50/30 transition-colors"
+          >
+            <Upload className="w-7 h-7 text-neutral-400 mb-2" />
+            <span className="text-sm font-medium">Cliquer pour ajouter des images</span>
+            <span className="text-xs text-neutral-500 mt-0.5">
+              JPG, PNG, WEBP, AVIF ou GIF — max 8 Mo chacun
+            </span>
+            <Input
+              id="images"
+              type="file"
+              multiple
+              accept="image/*"
+              onChange={(e) => handleFilesSelected(e.target.files)}
+              className="hidden"
+            />
+          </label>
+        </CardContent>
+      </Card>
+
+      {error && (
+        <Alert variant="destructive">
+          <AlertCircle className="w-4 h-4" />
+          <AlertDescription>{error}</AlertDescription>
+        </Alert>
       )}
 
-      <div className="space-y-2">
-        <label className="text-sm font-medium" htmlFor="images">
-          {mode === 'create' ? 'Images' : 'Ajouter des images'}
-        </label>
-        <input
-          id="images"
-          type="file"
-          multiple
-          accept="image/*"
-          onChange={(e) => setNewFiles(Array.from(e.target.files || []))}
-          className="text-sm"
-        />
-        {newFiles.length > 0 && (
-          <div className="grid grid-cols-3 sm:grid-cols-4 gap-2 mt-2">
-            {newFiles.map((f, i) => (
-              <div key={i} className="relative group">
-                <img
-                  src={URL.createObjectURL(f)}
-                  alt=""
-                  className="w-full h-24 object-cover rounded border"
-                />
-                <button
-                  type="button"
-                  onClick={() => removeNewFile(i)}
-                  className="absolute top-1 right-1 bg-red-600 text-white text-xs rounded px-1.5 py-0.5 opacity-0 group-hover:opacity-100 transition"
-                >
-                  retirer
-                </button>
-              </div>
-            ))}
-          </div>
-        )}
-      </div>
-
-      {error && <p className="text-sm text-red-600">{error}</p>}
-
-      <div className="flex items-center gap-3 pt-2 border-t">
-        <button
+      <div className="flex flex-col-reverse sm:flex-row sm:items-center sm:justify-between gap-3 pt-2 sticky bottom-0 bg-neutral-50 py-3 -mx-4 sm:mx-0 px-4 sm:px-0 border-t sm:border-t-0 sm:static sm:bg-transparent sm:py-0">
+        <Button
+          type="button"
+          variant="ghost"
+          onClick={() => router.push('/admin/realisations')}
+          disabled={loading}
+          className="w-full sm:w-auto"
+        >
+          <ArrowLeft className="w-4 h-4" />
+          Annuler
+        </Button>
+        <Button
           type="submit"
           disabled={loading}
-          className="bg-orange-500 hover:bg-orange-600 disabled:opacity-50 text-white px-4 py-2 rounded text-sm font-medium"
+          className="bg-orange-500 hover:bg-orange-600 text-white w-full sm:w-auto"
         >
-          {loading ? 'Enregistrement…' : mode === 'create' ? 'Créer' : 'Enregistrer'}
-        </button>
-        <button
-          type="button"
-          onClick={() => router.push('/admin/realisations')}
-          className="text-sm text-neutral-600 hover:text-neutral-900"
-        >
-          Annuler
-        </button>
+          {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Save className="w-4 h-4" />}
+          {loading
+            ? 'Enregistrement…'
+            : mode === 'create'
+              ? 'Créer la réalisation'
+              : 'Enregistrer'}
+        </Button>
       </div>
     </form>
   )
