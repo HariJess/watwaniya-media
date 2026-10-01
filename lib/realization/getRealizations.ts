@@ -1,27 +1,20 @@
-import { formatRealizations, Realization } from './formatRealizations'
+import { prisma } from '@/lib/prisma'
+import type { Realization } from './formatRealizations'
 
 export async function getRealizations(): Promise<Realization[]> {
   try {
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_STRAPI_URL}/api/realizations?populate=images`,
-      { next: { revalidate: 60 } }
-    )
-
-    if (!res.ok) {
-      console.error(`Erreur Strapi : ${res.status} ${res.statusText}`)
-      return []
-    }
-
-    const json = await res.json()
-
-    if (!json?.data) {
-      console.error('Réponse Strapi invalide :', json)
-      return []
-    }
-
-    return formatRealizations(json.data)
+    const rows = await prisma.realization.findMany({
+      orderBy: [{ position: 'asc' }, { id: 'asc' }],
+      include: { images: { orderBy: { position: 'asc' } } },
+    })
+    return rows.map((r) => ({
+      id: r.id,
+      title: r.title,
+      large: r.large,
+      images: r.images.map((i) => i.url),
+    }))
   } catch (error) {
-    console.error('Fetch Strapi échoué :', error)
-    return []  // ← la page s'affiche quand même, juste sans données
+    console.error('Erreur Prisma getRealizations:', error)
+    return []
   }
 }

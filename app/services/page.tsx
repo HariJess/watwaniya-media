@@ -9,6 +9,12 @@ import { Header } from '@/components/layout/header'
 import { ContactSection } from '@/components/home/contact-section'
 import { Footer } from '@/components/layout/footer'
 
+export const metadata = {
+  title: 'Nos services',
+  description:
+    'Communication, production audiovisuelle, social media, contenu digital, émissions et développement web — toutes nos expertises.',
+}
+
 export default function ServicesPage() {
   return (
     <div className="bg-black">

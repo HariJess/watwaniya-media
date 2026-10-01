@@ -8,10 +8,37 @@ import CookieBanner from '@/components/CookieBanner';
 const _geist = Geist({ subsets: ["latin"] });
 const _geistMono = Geist_Mono({ subsets: ["latin"] });
 
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'
+
 export const metadata: Metadata = {
-  title: 'Watwaniya Média - Agence de Communication Digitale',
-  description: 'Agence de communication digitale et de production audiovisuelle. Expertise locale avec vision internationale.',
-  generator: 'v0.app',
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: 'Watwaniya Média — Agence de communication digitale',
+    template: '%s | Watwaniya Média',
+  },
+  description:
+    'Agence de communication digitale et de production audiovisuelle. Expertise locale avec vision internationale.',
+  keywords: [
+    'communication digitale',
+    'production audiovisuelle',
+    'agence communication',
+    'Watwaniya Média',
+  ],
+  authors: [{ name: 'Watwaniya Média' }],
+  openGraph: {
+    type: 'website',
+    locale: 'fr_FR',
+    url: SITE_URL,
+    siteName: 'Watwaniya Média',
+    title: 'Watwaniya Média — Agence de communication digitale',
+    description:
+      'Agence de communication digitale et de production audiovisuelle. Expertise locale avec vision internationale.',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Watwaniya Média',
+    description: 'Agence de communication digitale et de production audiovisuelle.',
+  },
   icons: {
     icon: [
       {
@@ -37,7 +64,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en">
+    <html lang="fr">
       <body className="font-sans antialiased">
         <LoadingProvider>
           {children}

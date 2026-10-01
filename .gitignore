@@ -10,8 +10,19 @@ next.user-config.*
 # Environment variables
 .env*.local
 
+# User-uploaded media (served via /uploads)
+/public/uploads/*
+!/public/uploads/.gitkeep
+
 # Common ignores
 node_modules
 .next/
 .DS_Store
 pnpm-lock.yaml
+
+# IDE / local tooling
+.claude/
+.vscode/
+.idea/
+dev.log
+*.log

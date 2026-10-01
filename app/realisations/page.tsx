@@ -6,6 +6,12 @@ import { SectionFirstRealization } from '@/components/realisations/SectionFirstR
 import { SectionOtherRealizations } from '@/components/realisations/SectionOtherRealizations'
 import { getRealizations } from '@/lib/realization/getRealizations'
 
+export const metadata = {
+  title: 'Nos réalisations',
+  description:
+    'Découvrez les projets de communication, campagnes et productions audiovisuelles réalisés par Watwaniya Média.',
+}
+
 export default async function RealizationsPage() {
   const allRealizations = await getRealizations()
 

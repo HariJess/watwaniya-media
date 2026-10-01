@@ -1,0 +1,39 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Admin {
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  password  String
+  name      String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Realization {
+  id        Int                 @id @default(autoincrement())
+  title     String
+  large     Boolean             @default(false)
+  position  Int                 @default(0)
+  images    RealizationImage[]
+  createdAt DateTime            @default(now())
+  updatedAt DateTime            @updatedAt
+
+  @@index([position])
+}
+
+model RealizationImage {
+  id            Int         @id @default(autoincrement())
+  url           String      @db.VarChar(500)
+  position      Int         @default(0)
+  realization   Realization @relation(fields: [realizationId], references: [id], onDelete: Cascade)
+  realizationId Int
+
+  @@index([realizationId])
+}
